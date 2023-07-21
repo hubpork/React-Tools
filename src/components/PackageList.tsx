@@ -40,7 +40,6 @@ function Item({ name, isPacked, onRemove, onTogglePacked }: ItemProps) {
 				alignItems='center'
 				my={2}
 				gap={2}
-				flexWrap='wrap'
 				fontSize={{ base: 'sm', md: 'lg', lg: 'xl' }} 
 				maxW={{
 					base: '100%',
@@ -116,7 +115,7 @@ export default function PackingList() {
 
 	return (
 		<section>
-			<Flex gap={4} mt={4} maxW={{ base: '100%', lg: '75%' }} flexWrap='wrap'>
+			<Flex gap={4} mt={4} maxW={{ base: '100%', lg: '75%' }} flexWrap={{ base: 'wrap', md: 'nowrap' }}>
 				<Input
 					type="text"
 					value={newItemName}
@@ -127,7 +126,7 @@ export default function PackingList() {
 					Add Item
 				</Button>
 			</Flex>
-			<Flex gap={4} mt={4} maxW={{ base: '100%', lg: '75%' }} flexWrap='wrap'>
+			<Flex gap={4} mt={4} maxW={{ base: '100%', lg: '75%' }} flexWrap={{ base: 'wrap', md: 'nowrap' }}>
 				<Input
 					type="text"
 					value={searchQuery}
