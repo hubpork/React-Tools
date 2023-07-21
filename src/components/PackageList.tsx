@@ -32,22 +32,24 @@ function Item({ name, isPacked, onRemove, onTogglePacked }: ItemProps) {
 	return (
 		<ListItem>
 			<Flex 
-			borderRadius='md'
-			border='1px' 
-			borderColor='gray.200'
-			py={1}
-			px={2}
-			alignItems='center'
-			my={2}
-			gap={2}
-			maxW={{
-				base: '100%',
-				lg: '75%', // 80em+
-			}}
+				borderRadius='md'
+				border='1px' 
+				borderColor='gray.200'
+				py={1}
+				px={2}
+				alignItems='center'
+				my={2}
+				gap={2}
+				flexWrap='wrap'
+				fontSize={{ base: 'sm', md: 'lg', lg: 'xl' }} 
+				maxW={{
+					base: '100%',
+					lg: '75%', // 80em+
+				}}
 			>
 				<IconButton title="remove" bg="transparent" color="red" _hover={{ background: "white", color: "black"}}  flexShrink={0} size='sm' aria-label='Search database' icon={<CloseIcon />} onClick={onRemove} />
 				{itemContent}
-				<Button ml="auto" flexShrink={0} onClick={onTogglePacked}>{isPacked ? "Unpack" : "💼 Pack "}</Button>
+				<Button ml="auto" flexShrink={0} onClick={onTogglePacked} width={{ base: '100%', md: 'auto' }}>{isPacked ? "Unpack" : "💼 Pack "}</Button>
 			</Flex>
 		</ListItem>
 	);
@@ -114,7 +116,7 @@ export default function PackingList() {
 
 	return (
 		<section>
-			<Flex gap={4} mt={4} maxW={{ base: '100%', lg: '75%' }}>
+			<Flex gap={4} mt={4} maxW={{ base: '100%', lg: '75%' }} flexWrap='wrap'>
 				<Input
 					type="text"
 					value={newItemName}
@@ -125,7 +127,7 @@ export default function PackingList() {
 					Add Item
 				</Button>
 			</Flex>
-			<Flex gap={4} mt={4} maxW={{ base: '100%', lg: '75%' }}>
+			<Flex gap={4} mt={4} maxW={{ base: '100%', lg: '75%' }} flexWrap='wrap'>
 				<Input
 					type="text"
 					value={searchQuery}

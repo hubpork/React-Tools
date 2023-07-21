@@ -29,7 +29,7 @@ const Avatar: React.FC<AvatarProps> = ({ person, size }) => {
                 width={size}
                 height={size}
             />
-            <Text>{person.name}</Text>
+            <Text fontSize={{lg: 'lg' }} lineHeight={{ base: '1.3', lg: '1.5' }}>{person.name}</Text>
             
         </Flex>
     );

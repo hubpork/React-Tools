@@ -33,7 +33,7 @@ export const App = () => (
 					<Divider orientation='vertical' />
 				</Center>
 				<Grid py={4}>
-					<Heading as='h2' size='xl'>
+					<Heading as='h2'>
 						Amazing scientists
 					</Heading>
 					<Profile />
@@ -42,7 +42,7 @@ export const App = () => (
 					<Divider orientation='vertical' />
 				</Center>
 				<Grid py={4}>
-					<Heading as='h3' size='xl'>
+					<Heading as='h2'>
 						Packagelist
 					</Heading>
 					<PackingList />
@@ -51,7 +51,7 @@ export const App = () => (
 					<Divider orientation='vertical' />
 				</Center>
 				<Grid py={4}>
-					<Heading as='h2' size='xl'>
+					<Heading as='h2'>
 						PriceComparer
 					</Heading>
 					<PriceComparer />

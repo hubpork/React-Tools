@@ -33,6 +33,7 @@ function Item({ name, pricePerMonth, isPremium, isCustom, setSelectedItem, selec
 				alignItems='center'
 				my={2}
 				gap={2}
+				fontSize={{ base: 'lg', lg: 'xl' }}
 				color={isCustom ? "green.500" : "inherit"}
 				>
 					{isPremium ? <FaStar title="Premium" /> : <FaRegStar />}
@@ -111,19 +112,17 @@ export default function PriceComparer() {
 
 	return (
 		<section>
-			<Flex my={4} maxW={{ base: '100%', lg: '75%' }} gap={2}>
+			<Flex my={4} maxW={{ base: '100%', lg: '75%' }} gap={2} flexWrap={{ base: 'wrap', md: 'nowrap' }}>
 				<Input
 					placeholder="Custom product name"
 					value={customName}
 					onChange={(e) => setCustomName(e.target.value)}
-					mr={2}
 				/>
 				<Input
 					type="number"
 					placeholder="Price Per Month"
 					value={customPrice}
 					onChange={(e) => setCustomPrice(parseFloat(e.target.value))}
-					mr={2}
 				/>
 				<Button onClick={onAddCustomItem} colorScheme="teal" variant="solid" flexShrink={0} gap={2}>
 					<FaPlus /> Add Custom Item
@@ -133,7 +132,7 @@ export default function PriceComparer() {
 					{isPremium ? <FaStar /> : <FaRegStar />}
 				</Button>
 			</Flex>
-			<Text my={4}>If you want a product other than the Best Value product we have selected, <br />click and select your favorite! (Average price $ 500) </Text>
+			<Text my={4} fontSize={{ base: 'lg', lg: 'xl' }}>If you want a product other than the Best Value product we have selected, <br />click and select your favorite! (Average price $ 500) </Text>
 			<List>
 				{sortedItems.map((item, index) => (
 					<Item
@@ -149,11 +148,11 @@ export default function PriceComparer() {
 			</List>
 
 			{selectedItem && (
-				<Text>
+				<Text fontSize={{ base: 'lg', lg: 'xl' }}>
 					You chose {selectedItem.name} with a price of ${selectedItem.pricePerMonth} per month.
 				</Text>
 			)}
-			<Text color="pink.500">
+			<Text color="pink.500" fontSize={{ base: 'lg', lg: 'xl' }}>
 				Best saving: {chosenProduct} - {bestSavingPercentage.toFixed(2)}% off
 			</Text>
 		</section>
