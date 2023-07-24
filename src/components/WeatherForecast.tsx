@@ -137,7 +137,7 @@ const WeatherForecast = () => {
     return (
         <div>
             <form onSubmit={handleSearch}>
-                <Flex gap={4} mt={4} maxW={{ base: '100%', lg: '75%' }} flexWrap={{ base: 'wrap', md: 'nowrap' }}>
+                <Flex gap={4} mt={4} maxW={{ base: '100%', xl: '75%' }} flexWrap={{ base: 'wrap', md: 'nowrap' }}>
                     <Input
                         type="text"
                         placeholder="Enter a city"
@@ -149,7 +149,7 @@ const WeatherForecast = () => {
             </form>
 
         {forecastData ? (
-            <Flex gap={5} mt={4} maxW={{ base: '100%', lg: '75%' }} flexWrap={{ base: 'wrap', md: 'nowrap' }}>
+            <Flex gap={4} mt={4} maxW={{ base: '100%', xl: '75%' }} flexWrap={{ base: 'wrap', md: 'nowrap' }}>
                 <Flex 
                     textAlign={'center'}
                     width={'100%'}
@@ -157,7 +157,6 @@ const WeatherForecast = () => {
                     boxShadow='sm' 
                     p={5}
                     rounded='md' 
-                    bg='white'
                     borderRadius='md'
                     border='1px' 
                     borderColor='gray.200'
@@ -173,7 +172,6 @@ const WeatherForecast = () => {
                     boxShadow='sm' 
                     p={5}
                     rounded='md' 
-                    bg='white'
                     borderRadius='md'
                     border='1px' 
                     borderColor='gray.200'
@@ -188,7 +186,7 @@ const WeatherForecast = () => {
         )}
         <Heading as='h2' mt={5}>Week Forecast</Heading>
         {dailyForecast.length > 0 ? (
-            <Flex gap={4} mt={4} maxW={{ base: '100%', lg: '75%' }} flexWrap={{ base: 'wrap', md: 'nowrap' }}>
+            <Flex gap={4} mt={4} maxW={{ base: '100%', xl: '75%' }} flexWrap={{ base: 'wrap', md: 'nowrap' }}>
                 {dailyForecast.map((forecast) => (
                     <Flex 
                         textAlign={'center'}
@@ -197,7 +195,6 @@ const WeatherForecast = () => {
                         boxShadow='sm' 
                         p={5}
                         rounded='md' 
-                        bg='white'
                         borderRadius='md'
                         border='1px' 
                         borderColor='gray.200'

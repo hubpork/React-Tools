@@ -43,8 +43,9 @@ function Item({ name, isPacked, onRemove, onTogglePacked }: ItemProps) {
 				fontSize={{ base: 'sm', md: 'lg', lg: 'xl' }} 
 				maxW={{
 					base: '100%',
-					lg: '75%', // 80em+
+					lg: '75%',
 				}}
+				flexWrap={{ base: 'wrap', md: 'nowrap' }}
 			>
 				<IconButton title="remove" bg="transparent" color="red" _hover={{ background: "white", color: "black"}}  flexShrink={0} size='sm' aria-label='Search database' icon={<CloseIcon />} onClick={onRemove} />
 				{itemContent}

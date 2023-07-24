@@ -20,11 +20,11 @@ export const App = () => (
 	<ChakraProvider theme={theme}>
 		<Center p={4}>
 			<Box mx="auto" fontSize="xl" w='100%' maxW='8xl'>
-				<Heading as='h2'>
-					Weather Forecast
-				</Heading>
 				<Grid py={4}>
 					<ColorModeSwitcher justifySelf="flex-end" />
+					<Heading as='h2'>
+						Weather Forecast
+					</Heading>
 					<WeatherForecast />
 				</Grid>
 				<Center height='50px'>
