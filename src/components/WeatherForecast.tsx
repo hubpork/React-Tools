@@ -5,7 +5,8 @@ import {
     Button,
     Heading,
     Box,
-    Text
+    Text,
+    Skeleton
 } from "@chakra-ui/react"
 import axios from 'axios';
 import { WiDaySunny, WiCloudy, WiRain, WiSnow } from 'react-icons/wi';
@@ -38,41 +39,33 @@ const WeatherForecast = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-            const response = await axios.get(
-                `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`
-            );
-            setForecastData(response.data);
-            } catch (error) {
-            console.log(error);
-            }
-        };
-        fetchData();
-    }, [apiKey, city]);
-
-
-
-    useEffect(() => {
-        const fetchDailyForecast = async () => {
-            try {
-                const response = await axios.get(
-                `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}`
-                );
-                const dailyData = response.data.list.filter((item: any) => item.dt_txt.includes('12:00:00'));
+                const [weatherResponse, forecastResponse] = await Promise.all([
+                    axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`),
+                    axios.get(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}`)
+                ]);
+    
+                setForecastData(weatherResponse.data);
+                const dailyData = forecastResponse.data.list.filter((item: any) => {
+                    const date = new Date(item.dt_txt.split(' ')[0]);
+                    const today = new Date();
+                    return date >= today && item.dt_txt.includes('12:00:00');
+                });
                 const formattedData = dailyData.map((item: any) => ({
-                date: item.dt_txt.split(' ')[0],
-                temperature: Math.round(item.main.temp - 273.15),
-                weather: item.weather[0].description,
-                icon: item.weather[0].icon,
+                    date: item.dt_txt.split(' ')[0],
+                    temperature: Math.round(item.main.temp - 273.15),
+                    weather: item.weather[0].description,
+                    icon: item.weather[0].icon,
                 }));
                 setDailyForecast(formattedData);
             } catch (error) {
                 console.log(error);
             }
         };
-        fetchDailyForecast();
+    
+        fetchData();
     }, [apiKey, city]);
-
-
+    
+    
     const handleSearch = (e: React.FormEvent) => {
         e.preventDefault();
         setCity(searchCity);
@@ -124,8 +117,12 @@ const WeatherForecast = () => {
         return new Date(date).toLocaleDateString(undefined, options);
     };
 
-    const getRecommendation = (temperature: number) => {
-        if (temperature > 25) {
+    const getRecommendation = (temperature: number, weather: string) => {
+        if (weather.includes('storm')) {
+            return 'There is a storm expected. Stay indoors and take necessary precautions.';
+        } else if (temperature < 0) {
+            return 'It\'s going to be below freezing. Bundle up and stay warm.';
+        } else if (temperature > 25) {
             return 'It\'s going to be hot! Stay hydrated and wear light clothing.';
         } else if (temperature < 10) {
             return 'It\'s going to be cold! Bundle up and wear warm layers.';
@@ -148,46 +145,8 @@ const WeatherForecast = () => {
                 </Flex>
             </form>
 
-        {forecastData ? (
-            <Flex gap={4} mt={4} maxW={{ base: '100%', xl: '75%' }} flexWrap={{ base: 'wrap', md: 'nowrap' }}>
-                <Flex 
-                    textAlign={'center'}
-                    width={'100%'}
-                    flexDirection={'column'} 
-                    boxShadow='sm' 
-                    p={5}
-                    rounded='md' 
-                    borderRadius='md'
-                    border='1px' 
-                    borderColor='gray.200'
-                > 
-                    <Heading as='h2' size='2xl'>{convertKelvinToCelsius(forecastData.main.temp)}°C </Heading>
-                    <Text>{getFormattedDate(new Date().toISOString().split('T')[0])}</Text>
-                    <Text mb={4} mt={'auto'}>{getRecommendation(convertKelvinToCelsius(forecastData.main.temp))}</Text>
-                </Flex>
-                <Flex 
-                    textAlign={'center'}
-                    width={'100%'}
-                    flexDirection={'column'} 
-                    boxShadow='sm' 
-                    p={5}
-                    rounded='md' 
-                    borderRadius='md'
-                    border='1px' 
-                    borderColor='gray.200'
-                > 
-                    <Heading as='h2' size='2xl'>{forecastData.name}</Heading>
-                    <Text>{forecastData.weather[0].description}</Text>
-                    <Box fontSize={86} mx={'auto'}>{getWeatherIcon(forecastData.weather[0].icon)}</Box>
-                </Flex>
-            </Flex>
-        ) : (
-            <p>Loading...</p>
-        )}
-        <Heading as='h2' mt={5}>Week Forecast</Heading>
-        {dailyForecast.length > 0 ? (
-            <Flex gap={4} mt={4} maxW={{ base: '100%', xl: '75%' }} flexWrap={{ base: 'wrap', md: 'nowrap' }}>
-                {dailyForecast.map((forecast) => (
+            {forecastData ? (
+                <Flex gap={4} mt={4} maxW={{ base: '100%', xl: '75%' }} flexWrap={{ base: 'wrap', md: 'nowrap' }}>
                     <Flex 
                         textAlign={'center'}
                         width={'100%'}
@@ -198,18 +157,65 @@ const WeatherForecast = () => {
                         borderRadius='md'
                         border='1px' 
                         borderColor='gray.200'
-                        key={forecast.date}
                     > 
-                        <Text fontSize='sm'>{getFormattedDate(forecast.date)}</Text>
-                        <Heading as='h3' mt={3}>{forecast.temperature}°C</Heading>
-                        <Text>{forecast.weather}</Text>
-                        <Box fontSize={48} mx={'auto'}>{getWeatherIcon(forecast.icon)}</Box>
+                        <Heading as='h2' size='2xl'>{convertKelvinToCelsius(forecastData.main.temp)}°C </Heading>
+                        <Text>{getFormattedDate(new Date().toISOString().split('T')[0])}</Text>
+                        <Text mb={4} mt={'auto'}>{getRecommendation(convertKelvinToCelsius(forecastData.main.temp), forecastData.weather[0].description)}</Text>
                     </Flex>
-                ))}
-            </Flex>
-        ) : (
-            <p>Loading...</p>
-        )}
+                    <Flex 
+                        textAlign={'center'}
+                        width={'100%'}
+                        flexDirection={'column'} 
+                        boxShadow='sm' 
+                        p={5}
+                        rounded='md' 
+                        borderRadius='md'
+                        border='1px' 
+                        borderColor='gray.200'
+                    > 
+                        <Heading as='h2' size='2xl'>{forecastData.name}</Heading>
+                        <Text>{forecastData.weather[0].description}</Text>
+                        <Box fontSize={86} mx={'auto'}>{getWeatherIcon(forecastData.weather[0].icon)}</Box>
+                    </Flex>
+                </Flex>
+            ) : (
+                <Flex gap={4} mt={4} maxW={{ base: '100%', xl: '75%' }} flexWrap={{ base: 'wrap', md: 'nowrap' }}>
+                    <Skeleton width={'100%'} height='195px' />
+                    <Skeleton width={'100%'} height='195px'  />
+                </Flex>
+            )}
+            <Heading as='h2' mt={5}>Week Forecast</Heading>
+            {dailyForecast.length > 0 ? (
+                <Flex gap={4} mt={4} maxW={{ base: '100%', xl: '75%' }} flexWrap={{ base: 'wrap', md: 'nowrap' }}>
+                    {dailyForecast.map((forecast) => (
+                        <Flex 
+                            textAlign={'center'}
+                            width={'100%'}
+                            flexDirection={'column'} 
+                            boxShadow='sm' 
+                            p={5}
+                            rounded='md' 
+                            borderRadius='md'
+                            border='1px' 
+                            borderColor='gray.200'
+                            key={forecast.date}
+                        > 
+                            <Text fontSize='sm'>{getFormattedDate(forecast.date)}</Text>
+                            <Heading as='h3' mt={3}>{forecast.temperature}°C</Heading>
+                            <Text>{forecast.weather}</Text>
+                            <Box fontSize={48} mx={'auto'}>{getWeatherIcon(forecast.icon)}</Box>
+                        </Flex>
+                    ))}
+                </Flex>
+
+            ) : (
+                <Flex gap={4} mt={4} maxW={{ base: '100%', xl: '75%' }} flexWrap={{ base: 'wrap', md: 'nowrap' }}>
+                    <Skeleton width={'100%'} height='195px' />
+                    <Skeleton width={'100%'} height='195px'  />
+                    <Skeleton width={'100%'} height='195px'  />
+                    <Skeleton width={'100%'} height='195px'  />
+                </Flex>
+            )}
         </div>
     );
 };

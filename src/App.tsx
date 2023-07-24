@@ -7,6 +7,7 @@ import {
 	Grid,
 	Heading,
 	Divider,
+	Text,
 	theme
 } from "@chakra-ui/react"
 import { ColorModeSwitcher } from "./ColorModeSwitcher"
@@ -25,6 +26,7 @@ export const App = () => (
 					<Heading as='h2'>
 						Weather Forecast
 					</Heading>
+					<Text>Get an API Key at <a href="https://openweathermap.org/api">openweathermap.org</a></Text>
 					<WeatherForecast />
 				</Grid>
 				<Center height='50px'>
