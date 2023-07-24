@@ -29,10 +29,14 @@ function Item({ name, pricePerMonth, isPremium, isCustom, setSelectedItem, selec
 	return (
 		<ListItem onClick={onItemClick} cursor='pointer'>
 			<Flex
-				maxW={{ base: '100%', lg: '75%' }}
-				alignItems='center'
+				borderRadius='md'
+				border='1px' 
+				borderColor='gray.200'
+				p={2}
 				my={2}
 				gap={2}
+				maxW={{ base: '100%', lg: '75%' }}
+				alignItems='center'
 				fontSize={{ base: 'lg', lg: 'xl' }}
 				color={isCustom ? "green.500" : "inherit"}
 				>
