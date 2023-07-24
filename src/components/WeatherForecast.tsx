@@ -32,7 +32,7 @@ interface DailyForecast {
 const WeatherForecast = () => {
     const [forecastData, setForecastData] = useState<WeatherData | null>(null);
     const [dailyForecast, setDailyForecast] = useState<DailyForecast[]>([]);
-    const apiKey = process.env.REACT_APP_API_KEY;
+    const apiKey = process.env.REACT_WEATHER_API_KEY;
     const [city, setCity] = useState('Olten'); // Default city
     const [searchCity, setSearchCity] = useState('');
 
