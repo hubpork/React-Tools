@@ -1,6 +1,6 @@
 # Little Tools build in React with help from Chakra-UI
 
-## List of toolls so far 🚀
+## List of tools so far 🚀
 
 1. Weather Forecast
 2. Aare Guru (River Aare Temp.)
