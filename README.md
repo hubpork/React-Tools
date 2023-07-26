@@ -1,5 +1,14 @@
 # Little Tools build in React with help from Chakra-UI
 
+## List of toolls so far 🚀
+
+1. Weather Forecast
+2. Aare Guru (River Aare Temp.)
+3. Packing list
+4. Price comparator 
+5. Amazing scientists
+6. Mixcloud List
+
 This project was bootstrapped with
 [Create React App](https://github.com/facebook/create-react-app).
 

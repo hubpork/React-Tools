@@ -45,9 +45,9 @@ export const App = () => (
 				</Center>
 				<Grid py={4}>
 					<Heading as='h2'>
-						Packagelist
+						Packing list
 					</Heading>
-					<Text>Goal: Packagelist tool</Text>
+					<Text>Goal: Packing list tool</Text>
 					<PackingList />
 				</Grid>
 				<Center height='50px'>
@@ -55,7 +55,7 @@ export const App = () => (
 				</Center>
 				<Grid py={4}>
 					<Heading as='h2'>
-						Price Comparer
+						Price comparator
 					</Heading>
 					<Text>Goal: Price comparing</Text>
 					<PriceComparer />

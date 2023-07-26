@@ -195,7 +195,7 @@ const WeatherForecast = () => {
                     <Skeleton width={'100%'} height='195px'  />
                 </Flex>
             )}
-            <Heading as='h2' mt={5}>Week Forecast</Heading>
+            <Heading as='h3' size='lg' mt={5}>Week Forecast</Heading>
             {dailyForecast.length > 0 ? (
                 <Flex gap={4} mt={4} maxW={{ base: '100%', xl: '75%' }} flexWrap={{ base: 'wrap', md: 'nowrap' }}>
                     {dailyForecast.map((forecast) => (
