@@ -11,6 +11,8 @@ import {
 import axios from 'axios';
 import { WiDaySunny, WiCloudy, WiRain, WiSnow } from 'react-icons/wi';
 
+
+// Interface for weather data received from the API
 interface WeatherData {
     name: string;
     main: {
@@ -22,6 +24,7 @@ interface WeatherData {
     }[];
 }
 
+// Interface for daily forecast data
 interface DailyForecast {
     date: string;
     temperature: number;
@@ -30,14 +33,17 @@ interface DailyForecast {
 }
 
 const WeatherForecast = () => {
+
+    // State variables
     const [forecastData, setForecastData] = useState<WeatherData | null>(null);
     const [dailyForecast, setDailyForecast] = useState<DailyForecast[]>([]);
     // YOUR_API_CODE in .env
-    const apiKey = process.env.REACT_APP_API_KEY;
+    const apiKey = process.env.REACT_APP_API_KEY; // API key stored in environment variable
     const [city, setCity] = useState('Olten'); // Default city
     const [searchCity, setSearchCity] = useState('');
 
     useEffect(() => {
+        // Fetch weather data and forecast data from the API
         const fetchData = async () => {
             try {
                 const [weatherResponse, forecastResponse] = await Promise.all([
@@ -66,17 +72,19 @@ const WeatherForecast = () => {
         fetchData();
     }, [apiKey, city]);
     
-    
+    // Event handler for the search form submission
     const handleSearch = (e: React.FormEvent) => {
         e.preventDefault();
         setCity(searchCity);
         setSearchCity('');
     };
 
+    // Helper function to convert temperature from Kelvin to Celsius
     const convertKelvinToCelsius = (kelvin: number) => {
         return Math.round(kelvin - 273.15);
     };
 
+     // Helper function to get the appropriate weather icon based on the icon code
     const getWeatherIcon = (iconCode: string) => {
         switch (iconCode) {
             case '01d':
@@ -113,11 +121,13 @@ const WeatherForecast = () => {
         }
     };
 
+    // Helper function to format the date string to a readable format
     const getFormattedDate = (date: string) => {
         const options: Intl.DateTimeFormatOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
         return new Date(date).toLocaleDateString(undefined, options);
     };
 
+    // Helper function to get a recommendation based on the temperature and weather description
     const getRecommendation = (temperature: number, weather: string) => {
         if (weather.includes('storm')) {
             return 'There is a storm expected. Stay indoors and take necessary precautions.';
