@@ -3,13 +3,16 @@ import {
 	ChakraProvider,
 	Center,
 	Box,
+	Flex,
 	Grid,
 	Heading,
 	Divider,
 	Text,
+	Link,
 	theme
 } from "@chakra-ui/react"
 import { ColorModeSwitcher } from "./ColorModeSwitcher"
+import Network from "./components/Network"
 import Profile from "./components/Gallery"
 import PackingList from "./components/PackageList"
 import PriceComparer from "./components/PriceComparer"
@@ -24,6 +27,13 @@ export const App = () => (
 			<Box mx="auto" fontSize="xl" w='100%' maxW='8xl'>
 				<Grid py={4}>
 					<ColorModeSwitcher justifySelf="flex-end" />
+					<Heading as='h1'>
+						Little React Tools
+					</Heading>
+					<Flex alignItems='center' gap={2}>
+						Created by<Link href='https://www.maillard.dev/'>maillard.dev</Link>/<Network /></Flex>
+				</Grid>
+				<Grid py={4}>
 					<Heading as='h2'>
 						Weather Forecast
 					</Heading>

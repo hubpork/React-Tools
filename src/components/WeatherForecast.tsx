@@ -41,6 +41,7 @@ const WeatherForecast = () => {
     const apiKey = process.env.REACT_APP_API_KEY; // API key stored in environment variable
     const [city, setCity] = useState('Olten'); // Default city
     const [searchCity, setSearchCity] = useState('');
+    const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
         // Fetch weather data and forecast data from the API
@@ -64,8 +65,10 @@ const WeatherForecast = () => {
                     icon: item.weather[0].icon,
                 }));
                 setDailyForecast(formattedData);
+                setError(null); // clear any previous error
             } catch (error) {
                 console.log(error);
+                setError('There was an error fetching the weather data. Please check your API key and try again.');
             }
         };
     
@@ -144,6 +147,7 @@ const WeatherForecast = () => {
 
     return (
         <div>
+            {error && <Text color="red.500">{error}</Text>}
             <form onSubmit={handleSearch}>
                 <Flex gap={4} mt={4} maxW={{ base: '100%', xl: '75%' }} flexWrap={{ base: 'wrap', md: 'nowrap' }}>
                     <Input
