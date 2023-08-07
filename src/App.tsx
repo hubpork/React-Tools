@@ -30,8 +30,9 @@ export const App = () => (
 					<Heading as='h1'>
 						Little React Tools
 					</Heading>
-					<Flex alignItems='center' gap={2}>
-						Created by<Link href='https://www.maillard.dev/'>maillard.dev</Link>/<Network /></Flex>
+					<Flex alignItems='center' gap={2} flexWrap='wrap'>
+						Created by<Link href='https://www.maillard.dev/'>maillard.dev</Link>/<Network />
+					</Flex>
 				</Grid>
 				<Grid py={4}>
 					<Heading as='h2'>
