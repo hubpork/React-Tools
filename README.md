@@ -6,7 +6,7 @@
 2. Aare Guru (River Aare Temp.)
 3. Packing list
 4. Price comparator 
-5. Amazing scientists
+5. Electricity cost calculator
 6. Mixcloud List
 
 This project was bootstrapped with

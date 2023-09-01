@@ -13,12 +13,13 @@ import {
 } from "@chakra-ui/react"
 import { ColorModeSwitcher } from "./ColorModeSwitcher"
 import Network from "./components/Network"
-import Profile from "./components/Gallery"
+//import Profile from "./components/Gallery"
 import PackingList from "./components/PackageList"
 import PriceComparer from "./components/PriceComparer"
 import WeatherForecast from "./components/WeatherForecast"
 import AareGuru from "./components/AareGuru"
 import ShowList from "./components/Mixcloud"
+import ElectricityCostCalculator from "./components/ElectricityCostCalculator"
 
 export const App = () => (
 	
@@ -74,7 +75,7 @@ export const App = () => (
 				<Center height='50px'>
 					<Divider />
 				</Center>
-				<Grid py={4}>
+				{/* <Grid py={4}>
 					<Heading as='h2'>
 						Amazing scientists
 					</Heading>
@@ -83,8 +84,14 @@ export const App = () => (
 				</Grid>
 				<Center height='50px'>
 					<Divider />
-				</Center>
-
+				</Center> */}
+				<Grid py={4}>
+					<Heading as='h2'>
+						Electricity cost calculator
+					</Heading>
+					<Text>Goal: Electricity comparing & helper function to format a number with a specific decimal precision</Text>
+					<ElectricityCostCalculator />
+				</Grid>
 				<Grid py={4}>
 					<Heading as='h2'>
 						Mixcloud List
