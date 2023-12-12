@@ -25,15 +25,12 @@
     border-top: 2px solid var(--ecc-shade-lighter);
 }
 
-
-
 @media screen and ( max-width: 814px ){
     .ecc label small {
         width: 100%;
         display: block;
     }
 }
-
 
 @media screen and ( max-width: 580px ){
     .ecc .grid {
