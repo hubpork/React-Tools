@@ -1,105 +1,49 @@
 import * as React from "react"
-import {
-	ChakraProvider,
-	Center,
-	Box,
-	Flex,
-	Grid,
-	Heading,
-	Divider,
-	Text,
-	Link,
-	theme
-} from "@chakra-ui/react"
-import { ColorModeSwitcher } from "./ColorModeSwitcher"
+
+import useLocalStorage from "use-local-storage";
+import { FaMoon, FaSun } from "react-icons/fa";
+
 import Network from "./components/Network"
-//import Profile from "./components/Gallery"
-import PackingList from "./components/PackageList"
-import PriceComparer from "./components/PriceComparer"
+import MixcloudPlaylist from "./components/MixcloudPlaylist"
 import WeatherForecast from "./components/WeatherForecast"
 import AareGuru from "./components/AareGuru"
-import ShowList from "./components/Mixcloud"
+import PackingList from "./components/PackingList"
+import PriceComparer from "./components/PriceComparer"
 import ElectricityCostCalculator from "./components/ElectricityCostCalculator"
 
-export const App = () => (
-	
-	<ChakraProvider theme={theme}>
-		<Center p={4}>
-			<Box mx="auto" fontSize="xl" w='100%' maxW='8xl'>
-				<Grid py={4}>
-					<ColorModeSwitcher justifySelf="flex-end" />
-					<Heading as='h1'>
-						Little React Tools
-					</Heading>
-					<Flex alignItems='center' gap={2} flexWrap='wrap'>
-						Created by<Link href='https://www.maillard.dev/'>maillard.dev</Link>/<Network />
-					</Flex>
-				</Grid>
-				<Grid py={4}>
-					<Heading as='h2'>
-						Weather Forecast
-					</Heading>
-					<Text>Goal: Data fetch of weather forecast. Get an API Key at <a href="https://openweathermap.org/api">openweathermap.org</a></Text>
+export const App = () => {
+	const defaultDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+	const [theme, setTheme] = useLocalStorage('theme', defaultDark ? 'dark' : 'light');
+  
+	const switchTheme = () => {
+	  const newTheme = theme === 'light' ? 'dark' : 'light';
+	  setTheme(newTheme);
+	}
+  
+  
+	return (
+		<main data-mode={theme} className="block">
+			<div className="bg-white dark:bg-neutral-800 text-black dark:text-white grow">
+				<div className="layout mx-auto lg:py-10 stack--small print:hidden">
+					<button onClick={switchTheme} aria-label="Filter" className={`${theme === 'light' ? 'sun' : 'moon'}`}>
+						{theme === 'light' ? <FaSun /> : <FaMoon />}
+					</button>
+					<div>
+						<h1 className="block text-6xl font-bold">React Tools Playground</h1>
+						<div className="mt-3 text-sm text-neutral-500 dark:text-white font-light">Created by <a href='https://www.maillard.dev/'>maillard.dev</a> / <Network /></div>
+					</div>
+				</div>
+
+				<div className="layout mx-auto lg:py-10 stack--large">
+					<MixcloudPlaylist />
 					<WeatherForecast />
-				</Grid>
-				<Center height='50px'>
-					<Divider />
-				</Center>
-				<Grid py={4}>
-					<Heading as='h2'>
-						Aare Guru
-					</Heading>
-					<Text>Goal: Data fetch of the river Aare.</Text>
 					<AareGuru />
-				</Grid>
-				<Center height='50px'>
-					<Divider />
-				</Center>
-				<Grid py={4}>
-					<Heading as='h2'>
-						Packing list
-					</Heading>
-					<Text>Goal: Packing list tool</Text>
 					<PackingList />
-				</Grid>
-				<Center height='50px'>
-					<Divider />
-				</Center>
-				<Grid py={4}>
-					<Heading as='h2'>
-						Price comparator
-					</Heading>
-					<Text>Goal: Price comparing</Text>
 					<PriceComparer />
-				</Grid>
-				<Center height='50px'>
-					<Divider />
-				</Center>
-				{/* <Grid py={4}>
-					<Heading as='h2'>
-						Amazing scientists
-					</Heading>
-					<Text>Goal: Data fetch inside the component</Text>
-					<Profile />
-				</Grid>
-				<Center height='50px'>
-					<Divider />
-				</Center> */}
-				<Grid py={4}>
-					<Heading as='h2'>
-						Electricity cost calculator
-					</Heading>
-					<Text>Goal: Electricity comparing & helper function to format a number with a specific decimal precision</Text>
 					<ElectricityCostCalculator />
-				</Grid>
-				<Grid py={4}>
-					<Heading as='h2'>
-						Mixcloud List
-					</Heading>
-					<Text>Goal: Data fetch of my mixcloud channel.</Text>
-					<ShowList />
-				</Grid>
-			</Box>
-		</Center>
-	</ChakraProvider>
-)
+
+				</div>
+			</div>
+		</main>
+	);
+  };

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import PriceComparerVar from '../PriceComparerVar';
-import { Flex, Text, Box, List, ListItem, Button, Input } from "@chakra-ui/react";
-import { FaStar, FaRegStar, FaPlus } from "react-icons/fa";
+import { FaStar, FaRegStar } from "react-icons/fa";
 
 // Interface for the props of the Item component
 interface ItemProps {
@@ -27,29 +26,18 @@ function Item({ name, pricePerMonth, isPremium, isCustom, setSelectedItem, selec
 	const isSelected = selectedItem && selectedItem.name === name;
 
 	return (
-		<ListItem onClick={onItemClick} cursor='pointer'>
-			<Flex
-				borderRadius='md'
-				border='1px' 
-				borderColor='gray.200'
-				p={2}
-				my={2}
-				gap={2}
-				maxW={{ base: '100%', lg: '75%' }}
-				alignItems='center'
-				fontSize={{ base: 'lg', lg: 'xl' }}
-				color={isCustom ? "green.500" : "inherit"}
-				>
+		<li onClick={onItemClick} className="cursor-pointer">
+			<div className={`flex items-center justify-between gap-2 py-4 border border-t-0 border-x-0 ${isCustom ? "green.500" : "inherit"}`}>
 					{isPremium ? <FaStar title="Premium" /> : <FaRegStar />}
 					{itemContent}
 					{isSelected && <span>&#x2714;</span>}
 					{savingPercentage < 0 ? (
-						<Box ml="auto">no saving</Box>
+						<p className="ml-auto">no saving</p>
 					) : (
-						<Box ml="auto">save {savingPercentage.toFixed(2)}%</Box>
+						<p className="ml-auto">save {savingPercentage.toFixed(2)}%</p>
 					)}
-			</Flex>
-		</ListItem>
+			</div>
+		</li>
 	);
 }
 
@@ -115,29 +103,36 @@ export default function PriceComparer() {
 	: 0;
 
 	return (
-		<section>
-			<Flex my={4} maxW={{ base: '100%', lg: '75%' }} gap={2} flexWrap={{ base: 'wrap', md: 'nowrap' }}>
-				<Input
+		<section className="grid mt-0 stack stack--small print:hidden">
+            <div className="grid">
+                <h2 className="mb-2 text-4xl font-bold">Price comparator</h2>
+                <p>Goal: Price comparing</p>
+            </div>
+			<div className="flex gap-4">
+				<input
+                    className="block w-full p-3 text-black bg-white border border-gray-300 appearance-none rounded placeholder:text-gray-400 focus:border-slate-500 focus:outline-none focus:ring-slate-500"
 					placeholder="Custom product name"
 					value={customName}
 					onChange={(e) => setCustomName(e.target.value)}
 				/>
-				<Input
+				<input
+                    className="appearance-none block w-full p-3 text-black bg-white border border-gray-300 appearance-none rounded placeholder:text-gray-400 focus:border-slate-500 focus:outline-none focus:ring-slate-500"
 					type="number"
+                    min="1" max="1000"
 					placeholder="Price Per Month"
 					value={customPrice}
 					onChange={(e) => setCustomPrice(parseFloat(e.target.value))}
 				/>
-				<Button onClick={onAddCustomItem} colorScheme="teal" variant="solid" flexShrink={0} gap={2}>
-					<FaPlus /> Add Custom Item
-				</Button>
+				<button className="shrink hover:brightness-110 font-bold py-3 px-6 rounded bg-teal-700 shadow-lg text-white whitespace-nowrap" onClick={onAddCustomItem}>
+					Add Custom Item
+				</button>
 
-				<Button ml="auto" flexShrink={0} onClick={onTogglePremium} title="Premium">
+				<button className="shrink hover:brightness-110 font-bold py-3 px-6 rounded bg-teal-700 shadow-lg text-white whitespace-nowrap" onClick={onTogglePremium} title="Premium">
 					{isPremium ? <FaStar /> : <FaRegStar />}
-				</Button>
-			</Flex>
-			<Text my={4} fontSize={{ base: 'lg', lg: 'xl' }}>If you want a product other than the Best Value product we have selected, <br />click and select your favorite! (Average price $ 500) </Text>
-			<List>
+				</button>
+			</div>
+			<p className="text-xl text-teal-700 dark:text-teal-500">If you want a product other than the "Best Value" product we have selected, click and select your favorite! (Average price $ 500)</p>
+			<ul>
 				{sortedItems.map((item, index) => (
 					<Item
 					key={index}
@@ -149,16 +144,17 @@ export default function PriceComparer() {
 					selectedItem={selectedItem}
 					/>
 				))}
-			</List>
-
-			{selectedItem && (
-				<Text fontSize={{ base: 'lg', lg: 'xl' }}>
-					You chose {selectedItem.name} with a price of ${selectedItem.pricePerMonth} per month.
-				</Text>
-			)}
-			<Text color="pink.500" fontSize={{ base: 'lg', lg: 'xl' }}>
-				Best saving: {chosenProduct} - {bestSavingPercentage.toFixed(2)}% off
-			</Text>
+			</ul>
+            <div>
+                <p className="text-xl text-teal-700 dark:text-teal-500 font-bold">
+                    Best saving: {chosenProduct} - {bestSavingPercentage.toFixed(2)}% off
+                </p>
+                {selectedItem && (
+                    <p className="text-xl text-orange-500 font-bold mt-0">
+                        You chose {selectedItem.name} with a price of ${selectedItem.pricePerMonth} per month.
+                    </p>
+                )}
+            </div>
 		</section>
 	);
 }

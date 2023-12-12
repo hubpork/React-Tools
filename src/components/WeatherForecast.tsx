@@ -1,13 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import {
-    Flex,
-    Input,
-    Button,
-    Heading,
-    Box,
-    Text,
-    Skeleton
-} from "@chakra-ui/react"
 import axios from 'axios';
 import { WiDaySunny, WiCloudy, WiRain, WiSnow } from 'react-icons/wi';
 
@@ -146,92 +137,62 @@ const WeatherForecast = () => {
     };
 
     return (
-        <div>
-            {error && <Text color="red.500">{error}</Text>}
+
+        <section className="grid mt-0 stack stack--small print:hidden">
+            <div className="grid">
+                <h2 className="mb-2 text-4xl font-bold">Weather Forecast</h2>
+                <p>Goal: Data fetch of weather forecast. Get an API Key at openweathermap.org</p>
+            </div>
+            {error && <p className="text-red-500 my-3">{error}</p>}
             <form onSubmit={handleSearch}>
-                <Flex gap={4} mt={4} maxW={{ base: '100%', xl: '75%' }} flexWrap={{ base: 'wrap', md: 'nowrap' }}>
-                    <Input
+                <div className="flex gap-4">
+                    <input
+                        className="block w-full p-3 text-black bg-white border border-gray-300 appearance-none rounded placeholder:text-gray-400 focus:border-slate-500 focus:outline-none focus:ring-slate-500"
                         type="text"
                         placeholder="Enter a city"
                         value={searchCity}
                         onChange={e => setSearchCity(e.target.value)}
                     />
-                    <Button type="submit" colorScheme="teal" variant="solid" flexShrink={0}>Search</Button>
-                </Flex>
+                    <button type="submit" className="shrink hover:brightness-110 font-bold py-3 px-6 rounded bg-teal-700 shadow-lg text-white">Search</button>
+                </div>
             </form>
 
             {forecastData ? (
-                <Flex gap={4} mt={4} maxW={{ base: '100%', xl: '75%' }} flexWrap={{ base: 'wrap', md: 'nowrap' }}>
-                    <Flex 
-                        textAlign={'center'}
-                        width={'100%'}
-                        flexDirection={'column'} 
-                        boxShadow='sm' 
-                        p={5}
-                        rounded='md' 
-                        borderRadius='md'
-                        border='1px' 
-                        borderColor='gray.200'
-                    > 
-                        <Heading as='h2' size='2xl'>{convertKelvinToCelsius(forecastData.main.temp)}°C </Heading>
-                        <Text>{getFormattedDate(new Date().toISOString().split('T')[0])}</Text>
-                        <Text mb={4} mt={'auto'}>{getRecommendation(convertKelvinToCelsius(forecastData.main.temp), forecastData.weather[0].description)}</Text>
-                    </Flex>
-                    <Flex 
-                        textAlign={'center'}
-                        width={'100%'}
-                        flexDirection={'column'} 
-                        boxShadow='sm' 
-                        p={5}
-                        rounded='md' 
-                        borderRadius='md'
-                        border='1px' 
-                        borderColor='gray.200'
-                    > 
-                        <Heading as='h2' size='2xl'>{forecastData.name}</Heading>
-                        <Text>{forecastData.weather[0].description}</Text>
-                        <Box fontSize={86} mx={'auto'}>{getWeatherIcon(forecastData.weather[0].icon)}</Box>
-                    </Flex>
-                </Flex>
-            ) : (
-                <Flex gap={4} mt={4} maxW={{ base: '100%', xl: '75%' }} flexWrap={{ base: 'wrap', md: 'nowrap' }}>
-                    <Skeleton width={'100%'} height='195px' />
-                    <Skeleton width={'100%'} height='195px'  />
-                </Flex>
-            )}
-            <Heading as='h3' size='lg' mt={5}>Week Forecast</Heading>
-            {dailyForecast.length > 0 ? (
-                <Flex gap={4} mt={4} maxW={{ base: '100%', xl: '75%' }} flexWrap={{ base: 'wrap', md: 'nowrap' }}>
-                    {dailyForecast.map((forecast) => (
-                        <Flex 
-                            textAlign={'center'}
-                            width={'100%'}
-                            flexDirection={'column'} 
-                            boxShadow='sm' 
-                            p={5}
-                            rounded='md' 
-                            borderRadius='md'
-                            border='1px' 
-                            borderColor='gray.200'
-                            key={forecast.date}
-                        > 
-                            <Text fontSize='sm'>{getFormattedDate(forecast.date)}</Text>
-                            <Heading as='h3' mt={3}>{forecast.temperature}°C</Heading>
-                            <Text>{forecast.weather}</Text>
-                            <Box fontSize={48} mx={'auto'}>{getWeatherIcon(forecast.icon)}</Box>
-                        </Flex>
-                    ))}
-                </Flex>
+                <div className="grid md:grid-cols-2 gap-4 lg:mb-4">
+                    <div className="text-center px-3 pb-0 pt-5 rounded dark:bg-stone-700 flex flex-col shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
+                        <div className="block text-teal-700 dark:text-teal-500 mb-3 text-5xl font-bold">{convertKelvinToCelsius(forecastData.main.temp)}°C</div>
+                        <div className="font-medium text-xl">{getFormattedDate(new Date().toISOString().split('T')[0])}</div>
+                        <div className="text-l my-7">{getRecommendation(convertKelvinToCelsius(forecastData.main.temp), forecastData.weather[0].description)}</div>
+                    </div>
+                    <div className="text-center px-3 pb-0 pt-5 rounded dark:bg-stone-700 shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
+                        <div className="block text-teal-700 dark:text-teal-500 mb-3 text-5xl font-bold">{forecastData.name}</div>
+                        <div className="font-medium text-xl">{forecastData.weather[0].description}</div>
+                        <div className="text-8xl mx-auto inline-flex">{getWeatherIcon(forecastData.weather[0].icon)}</div>
+                    </div>
+                </div>
 
             ) : (
-                <Flex gap={4} mt={4} maxW={{ base: '100%', xl: '75%' }} flexWrap={{ base: 'wrap', md: 'nowrap' }}>
-                    <Skeleton width={'100%'} height='195px' />
-                    <Skeleton width={'100%'} height='195px'  />
-                    <Skeleton width={'100%'} height='195px'  />
-                    <Skeleton width={'100%'} height='195px'  />
-                </Flex>
+                <div>skeleton</div>
             )}
-        </div>
+            <div>
+                <h3 className="mb-3 text-2xl font-bold">Week Forecast</h3>
+                {dailyForecast.length > 0 ? (
+                    <div className="grid md:grid-cols-4 gap-4 lg:mb-4">
+                        {dailyForecast.map((forecast, index) => (
+                            <div  key={index} className="text-center p-3 rounded dark:bg-stone-700 flex flex-col shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
+                                <div className="block text-neutral-500 dark:text-white font-light">{getFormattedDate(forecast.date)}</div>
+                                <div className="font-bold text-3xl text-teal-700 dark:text-teal-500 my-3">{forecast.temperature}°C</div>
+                                <div className="font-bold">{forecast.weather}</div>
+                                <div className="text-7xl mx-auto inline-flex">{getWeatherIcon(forecast.icon)}</div>
+                            </div>
+                        ))}
+
+                    </div>
+                ) : (
+                    <div>skeleton</div>
+                )}
+            </div>
+        </section>
     );
 };
 

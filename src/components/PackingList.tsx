@@ -1,15 +1,5 @@
 import React, { useState } from 'react';
-import { CloseIcon } from '@chakra-ui/icons'
-import {
-    Text,
-    Flex,
-    List,
-    ListItem,
-    Input,
-    Button,
-    IconButton
-} from "@chakra-ui/react"
-
+import { FaTimes } from "react-icons/fa";
 // Interface for specifying the props of the Item component
 interface ItemProps {
 	name: any;
@@ -24,34 +14,17 @@ function Item({ name, isPacked, onRemove, onTogglePacked }: ItemProps) {
 	if (isPacked) {
 		// If the item is packed, modify the item content to include a green checkmark
 		itemContent = (
-			<Text color="green.500">
-			{name + " ✔"}
-			</Text>
+			<p color="text-teal-600">
+			    {name + " ✔"}
+			</p>
 		);
 	}
 	return (
-		<ListItem>
-			<Flex 
-				borderRadius='md'
-				border='1px' 
-				borderColor='gray.200'
-				py={1}
-				px={2}
-				alignItems='center'
-				my={2}
-				gap={2}
-				fontSize={{ base: 'sm', md: 'lg', lg: 'xl' }} 
-				maxW={{
-					base: '100%',
-					lg: '75%',
-				}}
-				flexWrap={{ base: 'wrap', md: 'nowrap' }}
-			>
-				<IconButton title="remove" bg="transparent" color="red" _hover={{ background: "white", color: "black"}}  flexShrink={0} size='sm' aria-label='Search database' icon={<CloseIcon />} onClick={onRemove} />
-				{itemContent}
-				<Button ml="auto" flexShrink={0} onClick={onTogglePacked} width={{ base: '100%', md: 'auto' }}>{isPacked ? "Unpack" : "💼 Pack "}</Button>
-			</Flex>
-		</ListItem>
+		<li className="flex items-center justify-between gap-2 py-4 border border-t-0 border-x-0">
+            <button title="remove" aria-label='Search database' onClick={onRemove}><FaTimes color="red" /></button>
+                {itemContent}
+            <button className="ml-auto" onClick={onTogglePacked}>{isPacked ? "Unpack" : "💼 Pack "}</button>
+		</li>
 	);
 }
 
@@ -115,58 +88,61 @@ export default function PackingList() {
 	);
 
 	return (
-		<section>
-			<Flex gap={4} mt={4} maxW={{ base: '100%', lg: '75%' }} flexWrap={{ base: 'wrap', md: 'nowrap' }}>
-				<Input
+		<section className="grid mt-0 stack stack--small print:hidden">
+            <div className="grid">
+                <h2 className="mb-2 text-4xl font-bold">Packing list</h2>
+                <p>Goal: Packing list tool</p>
+            </div>
+			<div className="flex gap-4">
+				<input
+                    className="block w-full p-3 text-black bg-white border border-gray-300 appearance-none rounded placeholder:text-gray-400 focus:border-slate-500 focus:outline-none focus:ring-slate-500"
 					type="text"
 					value={newItemName}
 					onChange={(e) => setNewItemName(e.target.value)}
 					placeholder="Add an item"
 				/>
-				<Button colorScheme="teal" variant="solid" flexShrink={0} onClick={handleAddItem}>
+				<button className="shrink hover:brightness-110 font-bold py-3 px-6 rounded bg-teal-700 shadow-lg text-white whitespace-nowrap" onClick={handleAddItem}>
 					Add Item
-				</Button>
-			</Flex>
-			<Flex gap={4} mt={4} maxW={{ base: '100%', lg: '75%' }} flexWrap={{ base: 'wrap', md: 'nowrap' }}>
-				<Input
+				</button>
+			</div>
+			<div className="flex flex-wrap md:flex-nowrap gap-4">
+				<input
+                    className="block w-full p-3 text-black bg-white border border-gray-300 appearance-none rounded placeholder:text-gray-400 focus:border-slate-500 focus:outline-none focus:ring-slate-500"
 					type="text"
 					value={searchQuery}
 					onChange={(e) => handleSearchQueryChange(e.target.value)}
 					placeholder="Search items"
 				/>
-				<Button
-					colorScheme={filter === "all" ? "teal" : "gray"}
-					variant={filter === "all" ? "solid" : "outline"}
+				<button
+                    className={`grow md:shrink hover:brightness-110 font-bold py-3 px-6 rounded shadow-lg text-white whitespace-nowrap ${filter === "all" ? "bg-teal-700" : "bg-gray-400"}`}
 					onClick={() => handleFilterChange("all")}
 				>
 					All
-				</Button>
-				<Button
-					colorScheme={filter === "packed" ? "teal" : "gray"}
-					variant={filter === "packed" ? "solid" : "outline"}
+				</button>
+				<button
+                    className={`grow md:shrink hover:brightness-110 font-bold py-3 px-6 rounded shadow-lg text-white whitespace-nowrap ${filter === "packed" ? "bg-teal-700" : "bg-gray-400"}`}
 					onClick={() => handleFilterChange("packed")}
 				>
 					Packed
-				</Button>
-				<Button
-					colorScheme={filter === "unpacked" ? "teal" : "gray"}
-					variant={filter === "unpacked" ? "solid" : "outline"}
+				</button>
+				<button
+                    className={`grow md:shrink hover:brightness-110 font-bold py-3 px-6 rounded shadow-lg text-white whitespace-nowrap ${filter === "unpacked" ? "bg-teal-700" : "bg-gray-400"}`}
 					onClick={() => handleFilterChange("unpacked")}
 				>
 					Unpacked
-				</Button>
-			</Flex>
-			<List>
+				</button>
+			</div>
+			<ul>
 				{searchedItems.map((item, index) => (
-					<Item
-					key={index}
-					name={item.name}
-					isPacked={item.isPacked}
-					onRemove={() => handleRemoveItem(index)}
-					onTogglePacked={() => handleTogglePacked(index)}
-					/>
+                    <Item 
+                        key={index}
+                        name={item.name}
+                        isPacked={item.isPacked}
+                        onRemove={() => handleRemoveItem(index)}
+                        onTogglePacked={() => handleTogglePacked(index)}
+                        />
 				))}
-			</List>
+			</ul>
 		</section>
 	);
 }

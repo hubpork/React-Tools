@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import "./styles.css";
+import "./ecc.css";
 
 const ElectricityCostCalculator: React.FC = () => {
   const [annualConsumption, setAnnualConsumption] = useState<number>(0);
@@ -174,204 +174,222 @@ const ElectricityCostCalculator: React.FC = () => {
   };
 
   return (
-    <div className='container ecc'>
 
-      <label className="d-flex gap-2 justify-content-between align-items-center flex-wrap">
-        <div>Annual consumption <small>in kWh</small></div>
-        {
-          annualConsumption === 0 ? (
-            <input
-            type="number"
-            onChange={handleInputChange}
-          />
-          ) : (
-            <input
-            type="number"
-            value={annualConsumption}
-            onChange={handleInputChange}
-          />
-          )
-        }
-      </label>
-      <label className="d-flex gap-2 justify-content-between align-items-center flex-wrap">
-        <div>Quantity high rate (HT) <small>in kWh [Monday to Friday, 7:00 a.m. - 7:00 p.m.]</small></div>
-        {
-          quantityHighRate === 0 ? (
-            <input
-            type="number"
-            onChange={handleQuantityHighRateChange}
-          />
-          ) : (
-            <input
-            type="number"
-            value={quantityHighRate}
-            onChange={handleQuantityHighRateChange}
-          />
-          )
-        }
-      </label>
-      <label className="d-flex gap-2 justify-content-between align-items-center flex-wrap">
-        <div>Quantity low rate (NT) <small>in kWh [other time]</small></div>
-        {
-          quantityLowRate === 0 ? (
-            <input
-            type="number"
-            onChange={handleQuantityLowRateChange}
-          />
-          ) : (
-            <input
-            type="number"
-            value={quantityLowRate}
-            onChange={handleQuantityLowRateChange}
-          />
-          )
-        }
-      </label>
+    <section className="grid mt-0 stack stack--small">
+        <div className="grid print:hidden">
+            <h2 className="mb-2 text-4xl font-bold">Electricity cost calculator</h2>
+            <p>Goal: Electricity comparing & helper function to format a number with a specific decimal precision</p>
+        </div>
+        <div className="ecc">
+            <div className="flex gap-2 justify-between items-center flex-wrap border border-neutral-500 border-dotted border-t-0 border-x-0 py-3">
+                <label htmlFor="annualConsumption" className="text-lg font-medium text-teal-700 dark:text-teal-500">Annual consumption <small className="text-xs font-normal text-black dark:text-white">in kWh</small></label>
+                {
+                annualConsumption === 0 ? (
+                    <input
+                    className="text-right block p-2 text-black bg-white border border-gray-300 appearance-none rounded placeholder:text-gray-400 focus:border-slate-500 focus:outline-none focus:ring-slate-500"
+                    type="number"
+                    onChange={handleInputChange}
+                    id="annualConsumption"
+                />
+                ) : (
+                    <input
+                    className="text-right block p-2 text-black bg-white border border-gray-300 appearance-none rounded placeholder:text-gray-400 focus:border-slate-500 focus:outline-none focus:ring-slate-500"
+                    type="number"
+                    value={annualConsumption}
+                    onChange={handleInputChange}
+                    id="annualConsumption"
+                />
+                )
+            }
+            </div>
+            <div className="flex gap-2 justify-between items-center flex-wrap border border-neutral-500 border-dotted border-t-0 border-x-0 py-3">
+                <label htmlFor="quantityHighRate" className="text-lg font-medium text-teal-700 dark:text-teal-500">Quantity high rate (HT) <small className="text-xs font-normal text-black dark:text-white">in kWh [Monday to Friday, 7:00 a.m. - 7:00 p.m.]</small></label>
+                {
+                quantityHighRate === 0 ? (
+                    <input
+                    className="text-right block p-2 text-black bg-white border border-gray-300 appearance-none rounded placeholder:text-gray-400 focus:border-slate-500 focus:outline-none focus:ring-slate-500"
+                    type="number"
+                    onChange={handleQuantityHighRateChange}
+                    id="quantityHighRate"
+                />
+                ) : (
+                    <input
+                    className="text-right block p-2 text-black bg-white border border-gray-300 appearance-none rounded placeholder:text-gray-400 focus:border-slate-500 focus:outline-none focus:ring-slate-500"
+                    type="number"
+                    value={quantityHighRate}
+                    onChange={handleQuantityHighRateChange}
+                    id="quantityHighRate"
+                />
+                )
+                }
+            </div>
+            <div className="flex gap-2 justify-between items-center flex-wrap border border-neutral-500 border-dotted border-t-0 border-x-0 py-3">
+                <label htmlFor="quantityLowRate" className="text-lg font-medium text-teal-700 dark:text-teal-500">Quantity low rate (NT) <small className="text-xs font-normal text-black dark:text-white">in kWh [other time]</small></label>
+                {
+                quantityLowRate === 0 ? (
+                    <input
+                    className="text-right block p-2 text-black bg-white border border-gray-300 appearance-none rounded placeholder:text-gray-400 focus:border-slate-500 focus:outline-none focus:ring-slate-500"
+                    type="number"
+                    onChange={handleQuantityLowRateChange}
+                    id="quantityLowRate"
+                />
+                ) : (
+                    <input
+                    className="text-right block p-2 text-black bg-white border border-gray-300 appearance-none rounded placeholder:text-gray-400 focus:border-slate-500 focus:outline-none focus:ring-slate-500"
+                    type="number"
+                    value={quantityLowRate}
+                    onChange={handleQuantityLowRateChange}
+                    id="quantityLowRate"
+                />
+                )
+                }
+            </div>
 
-      <br />
+            <br />
 
-      <div className='d-flex flex-column'>
-        <div className='d-flex gap-2 justify-content-end my-2'>
-          <h2>Annual cost calculation</h2>
+            <div className='flex flex-col'>
+                <div className='flex gap-2 justify-end my-2'>
+                    <h2 className="text-2xl font-bold text-teal-700 dark:text-teal-500">Annual cost calculation</h2>
+                </div>
+                <div className='grid'>
+                <div></div>
+                <div></div>
+                <div className='flex gap-2 justify-end items-center text-teal-700 dark:text-teal-500'>
+                    <strong>{actualYear}</strong>
+                </div>
+                <div className='flex gap-2 justify-end items-center text-teal-700 dark:text-teal-500'>
+                    <strong>{nextYear}</strong>
+                </div>
+                </div>
+                <div className='grid'>
+                <div></div>
+                <h3>Tariff</h3>
+                <div className='flex gap-2 justify-end items-center'>
+                    <h3>CHF</h3>
+                </div>
+                <div className='flex gap-2 justify-end items-center'>
+                    <h3>CHF</h3>
+                </div>
+                </div>
+                <div className='grid'>
+                <div>Grid usage</div>
+                <div>General N</div>
+                <div className='flex gap-2 justify-end items-center'>
+                    {formatNumber(gridUsageSubtotal(0))}
+                </div>
+                <div className='flex gap-2 justify-end items-center'>
+                    {formatNumber(gridUsageSubtotal(1))}
+                </div>
+                </div>
+                <div className='grid'>
+                <div>Energie</div>
+                <div>General N, Basic supply</div>
+                <div className='flex gap-2 justify-end items-center'>
+                    {formatNumber(energyUsageSubtotal(0))}
+                </div>
+                <div className='flex gap-2 justify-end items-center'>
+                    {formatNumber(energyUsageSubtotal(1))}
+                </div>
+                </div>
+                <div className='grid'>
+                <div>Total excl. taxes and VAT</div>
+                <div></div>
+                <div className='flex gap-2 justify-end items-center'>
+                    {formatNumber(calculateSubtotal(0))}
+                </div>
+                <div className='flex gap-2 justify-end items-center'>
+                    {formatNumber(calculateSubtotal(1))}
+                </div>
+                </div>
+                <div className='hr'><hr /></div>
+                <div className='grid'>
+                <div>Municipal fee <small>(Concession fee)</small></div>
+                <div></div>
+                <div className='flex gap-2 justify-end items-center'>
+                    {formatNumber(municipalTaxSubtotal(0))}
+                </div>
+                <div className='flex gap-2 justify-end items-center'>
+                    {formatNumber(municipalTaxSubtotal(1))}
+                </div>
+                </div>
+                <div className='grid'>
+                <div>Federal tax</div>
+                <div></div>
+                <div className='flex gap-2 justify-end items-center'>
+                    {formatNumber(federalFeeSubtotal(0))}
+                </div>
+                <div className='flex gap-2 justify-end items-center'>
+                    {formatNumber(federalFeeSubtotal(1))}
+                </div>
+                </div>
+                <div className='grid'>
+                <div>Swissgrid - System service</div>
+                <div></div>
+                <div className='flex gap-2 justify-end items-center'>
+                    {formatNumber(systemServiceSubtotal(0))}
+                </div>
+                <div className='flex gap-2 justify-end items-center'>
+                    {formatNumber(systemServiceSubtotal(1))}
+                </div>
+                </div>
+                <div className='grid'>
+                <div>Swissgrid - Power reserve</div>
+                <div></div>
+                <div className='flex gap-2 justify-end items-center'>
+                    {formatNumber(powerReserveSubtotal(0))}
+                </div>
+                <div className='flex gap-2 justify-end items-center'>
+                    {formatNumber(powerReserveSubtotal(1))}
+                </div>
+                </div>
+                <div className='grid'>
+                <div>Total charges</div>
+                <div></div>
+                <div className='flex gap-2 justify-end items-center'>
+                    {formatNumber(calculateSubtotalCharges(0))}
+                </div>
+                <div className='flex gap-2 justify-end items-center'>
+                    {formatNumber(calculateSubtotalCharges(1))}
+                </div>
+                </div>
+                <div className='hr'><hr /></div>
+                <div className='grid'>
+                <div>Total excl. VAT</div>
+                <div></div>
+                <div className='flex gap-2 justify-end items-center'>
+                    {formatNumber(calculateTotal(0))}
+                </div>
+                <div className='flex gap-2 justify-end items-center'>
+                    {formatNumber(calculateTotal(1))}
+                </div>
+                </div>
+                <div className='grid'>
+                <div>Added value tax</div>
+                <div>{formatNumber(taxActualYear)}% / {formatNumber(taxNextYear)}%</div>
+                <div className='flex gap-2 justify-end items-center'>
+                    {formatNumber(calculateTaxSubtotal(0))}
+                    
+                </div>
+                <div className='flex gap-2 justify-end items-center'>
+                    {formatNumber(calculateTaxSubtotal(1))}
+                </div>
+                </div>
+                <div className='grid'>
+                <h3>Total incl. VAT</h3>
+                <div></div>
+                <div className='flex gap-2 justify-end items-center'>
+                    <h3>{formatNumber(calculateFinalPricePerYear(0))}</h3>
+                </div>
+                <div className='flex gap-2 justify-end items-center'>
+                    <h3>{formatNumber(calculateFinalPricePerYear(1))}</h3>
+                </div>
+                </div>
+                <div className='hr'><hr className="end" /></div>
+            </div>
+             <br />
+            <div className="flex gap-2 justify-end my-2"><button className="shrink hover:brightness-110 font-bold py-3 px-6 rounded bg-teal-700 shadow-lg text-white whitespace-nowrap" onClick={() => window.print()}>Print</button></div>
         </div>
-        <div className='grid'>
-          <div></div>
-          <div></div>
-          <div className='d-flex gap-2 justify-content-end align-items-center'>
-            <strong>{actualYear}</strong>
-          </div>
-          <div className='d-flex gap-2 justify-content-end align-items-center'>
-            <strong>{nextYear}</strong>
-          </div>
-        </div>
-        <div className='grid'>
-          <div></div>
-          <h3>Tariff</h3>
-          <div className='d-flex gap-2 justify-content-end align-items-center'>
-            <h3>CHF</h3>
-          </div>
-          <div className='d-flex gap-2 justify-content-end align-items-center'>
-            <h3>CHF</h3>
-          </div>
-        </div>
-        <div className='grid'>
-          <div>Grid usage</div>
-          <div>General N</div>
-          <div className='d-flex gap-2 justify-content-end align-items-center'>
-            {formatNumber(gridUsageSubtotal(0))}
-          </div>
-          <div className='d-flex gap-2 justify-content-end align-items-center'>
-            {formatNumber(gridUsageSubtotal(1))}
-          </div>
-        </div>
-        <div className='grid'>
-          <div>Energie</div>
-          <div>General N, Basic supply</div>
-          <div className='d-flex gap-2 justify-content-end align-items-center'>
-            {formatNumber(energyUsageSubtotal(0))}
-          </div>
-          <div className='d-flex gap-2 justify-content-end align-items-center'>
-            {formatNumber(energyUsageSubtotal(1))}
-          </div>
-        </div>
-        <div className='grid'>
-          <div>Total excl. taxes and VAT</div>
-          <div></div>
-          <div className='d-flex gap-2 justify-content-end align-items-center'>
-            {formatNumber(calculateSubtotal(0))}
-          </div>
-          <div className='d-flex gap-2 justify-content-end align-items-center'>
-            {formatNumber(calculateSubtotal(1))}
-          </div>
-        </div>
-        <div className='hr'><hr /></div>
-        <div className='grid'>
-          <div>Municipal fee <small>(Concession fee)</small></div>
-          <div></div>
-          <div className='d-flex gap-2 justify-content-end align-items-center'>
-            {formatNumber(municipalTaxSubtotal(0))}
-          </div>
-          <div className='d-flex gap-2 justify-content-end align-items-center'>
-            {formatNumber(municipalTaxSubtotal(1))}
-          </div>
-        </div>
-        <div className='grid'>
-          <div>Federal tax</div>
-          <div></div>
-          <div className='d-flex gap-2 justify-content-end align-items-center'>
-            {formatNumber(federalFeeSubtotal(0))}
-          </div>
-          <div className='d-flex gap-2 justify-content-end align-items-center'>
-            {formatNumber(federalFeeSubtotal(1))}
-          </div>
-        </div>
-        <div className='grid'>
-          <div>Swissgrid - System service</div>
-          <div></div>
-          <div className='d-flex gap-2 justify-content-end align-items-center'>
-            {formatNumber(systemServiceSubtotal(0))}
-          </div>
-          <div className='d-flex gap-2 justify-content-end align-items-center'>
-            {formatNumber(systemServiceSubtotal(1))}
-          </div>
-        </div>
-        <div className='grid'>
-          <div>Swissgrid - Power reserve</div>
-          <div></div>
-          <div className='d-flex gap-2 justify-content-end align-items-center'>
-            {formatNumber(powerReserveSubtotal(0))}
-          </div>
-          <div className='d-flex gap-2 justify-content-end align-items-center'>
-            {formatNumber(powerReserveSubtotal(1))}
-          </div>
-        </div>
-        <div className='grid'>
-          <div>Total charges</div>
-          <div></div>
-          <div className='d-flex gap-2 justify-content-end align-items-center'>
-            {formatNumber(calculateSubtotalCharges(0))}
-          </div>
-          <div className='d-flex gap-2 justify-content-end align-items-center'>
-            {formatNumber(calculateSubtotalCharges(1))}
-          </div>
-        </div>
-        <div className='hr'><hr /></div>
-        <div className='grid'>
-          <div>Total excl. VAT</div>
-          <div></div>
-          <div className='d-flex gap-2 justify-content-end align-items-center'>
-            {formatNumber(calculateTotal(0))}
-          </div>
-          <div className='d-flex gap-2 justify-content-end align-items-center'>
-            {formatNumber(calculateTotal(1))}
-          </div>
-        </div>
-        <div className='grid'>
-          <div>Added value tax</div>
-          <div>{formatNumber(taxActualYear)}% / {formatNumber(taxNextYear)}%</div>
-          <div className='d-flex gap-2 justify-content-end align-items-center'>
-            {formatNumber(calculateTaxSubtotal(0))}
-            
-          </div>
-          <div className='d-flex gap-2 justify-content-end align-items-center'>
-            {formatNumber(calculateTaxSubtotal(1))}
-          </div>
-        </div>
-        <div className='grid'>
-          <h3>Total incl. VAT</h3>
-          <div></div>
-          <div className='d-flex gap-2 justify-content-end align-items-center'>
-            <h3>{formatNumber(calculateFinalPricePerYear(0))}</h3>
-          </div>
-          <div className='d-flex gap-2 justify-content-end align-items-center'>
-            <h3>{formatNumber(calculateFinalPricePerYear(1))}</h3>
-          </div>
-        </div>
-        <div className='hr'><hr className="end" /></div>
-      </div>
-      {/* <br />
-      <div className="d-flex gap-2 justify-content-end my-2"><button onClick={() => window.print()}>Print</button></div> */}
-    </div>
+    </section>
   );
 };
 

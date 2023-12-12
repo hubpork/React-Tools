@@ -1,8 +1,4 @@
 import { useState, useEffect } from 'react';
-import {
-    Box,
-    Text
-} from "@chakra-ui/react"
 
 function Network() {
     // Online state
@@ -28,13 +24,13 @@ function Network() {
     }, [isOnline]);
 
     return (
-        <Box>
+        <>
             {isOnline ? (
-            <Text size='sm' my={3} className='online'>You are online</Text>
+                <span className='online'>You are online</span>
             ) : (
-            <Text size='sm' my={3} className='offline' color="red.500">❌ Check Network: You are offline</Text>
+                <span className='offline' color="red.500">❌ Check Network: You are offline</span>
             )}
-        </Box>
+        </>
     );
 }
 

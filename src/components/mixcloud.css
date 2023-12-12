@@ -1,0 +1,66 @@
+
+.mc .vinyl-wrapper {
+    position: absolute;
+    z-index: -1;
+    border-radius: 50%;
+    top: 0.5%;
+    left: 3%;
+    width: 46vw;
+    height: 99%;
+    transform: translateZ(-8px);
+    filter: drop-shadow(0 0 1px rgba(0, 0, 0, 0.6));
+    transition: left 0.4s;
+    opacity: 0;
+}
+
+.mc .vinyl {
+    position: relative;
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+    background-color: #21201e;
+    background-image: conic-gradient(from 45deg, rgba(255, 255, 255, 0.25), transparent 6.25% 43.75%, rgba(255, 255, 255, 0.25) 50%, transparent 56.25% 93.75%, rgba(255, 255, 255, 0.25)), radial-gradient(farthest-side, transparent 0 calc(100% - 1px), #342d2b 95.23% 100%), radial-gradient(farthest-side, transparent 0 95.23%, #342d2b 95.23% 100%), radial-gradient(farthest-side, rgba(255, 255, 255, 0.06) 0 40%, rgba(0, 0, 0, 0.2) 40% calc(40% + 1px), rgba(0, 0, 0, 0.12) calc(40% + 1px) 48%, #282826 48% calc(48% + 1px), transparent calc(48% + 1px) 100%), radial-gradient(farthest-side, transparent 63.8%, rgba(255, 255, 255, 0.03) 63.8% calc(63.8% + 1px), transparent calc(63.8% + 1px) 81.9%, rgba(255, 255, 255, 0.03) 81.9% calc(81.9% + 1px), transparent 0), repeating-radial-gradient(farthest-side, rgba(255, 255, 255, 0.005) 0 1px, transparent 1px 2px), repeating-radial-gradient(farthest-side, rgba(255, 255, 255, 0.005) 0 1px, transparent 1px 5px), repeating-radial-gradient(farthest-side, #1e1d1c, #21201e 12.5%);
+    -webkit-mask-image: radial-gradient(transparent 2.4%, #fff 2.4%);
+    box-shadow: inset 0 0 1px 1px #000, inset 0 0 0 2px rgba(110, 100, 101, 0.6);
+}
+
+.mc .vinyl-inlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(0);
+    border: 1px solid #3b3b38;
+    border-radius: 50%;
+    width: 33.33%;
+    height: 33.33%;
+    background-size: cover;
+    image-rendering: crisp-edges;
+}
+
+@media screen and ( min-width: 768px ){
+    .mc .vinyl-wrapper {
+        width: 31vw;
+        opacity: 1;
+    }
+}
+
+@media (pointer:fine) and ( min-width: 1024px ){
+
+    .mc .vinyl-wrapper {
+        width: 99%;
+    }
+
+    .mc .vinyl-jacket:hover {
+        z-index: 3;
+    }
+
+    .mc .vinyl-jacket:hover > .vinyl-wrapper {
+        left: 10%;
+    }
+}
+
+@media (pointer:fine) and ( min-width: 1280px ) {
+    .mc .vinyl-jacket:hover > .vinyl-wrapper {
+        left: 50%;
+    }
+}
