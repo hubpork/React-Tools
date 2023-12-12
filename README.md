@@ -1,6 +1,6 @@
 # React Tools Playground with Tailwind
 
-## List of tools so far 🚀
+## List Tools so far 🚀
 
 1. Mixcloud List
 2. Weather Forecast
